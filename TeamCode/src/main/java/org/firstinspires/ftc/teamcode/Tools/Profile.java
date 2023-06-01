@@ -1,2 +1,4 @@
-package org.firstinspires.ftc.teamcode.Tools;public class Profile {
+package org.firstinspires.ftc.teamcode.Tools;
+
+public class Profile {
 }
