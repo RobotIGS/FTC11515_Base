@@ -63,12 +63,14 @@ public class Robot {
      * refresh
      */
     public void step() {
+	//TODO: run navi and 
     }
 
     /**
      * stop all
      */
     public void stop() {
-
+	chassi.stopMotors();
+	//TODO: add navi stop?
     }
 }
