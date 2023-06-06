@@ -4,12 +4,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 public interface Chassi {
-	Position drivenDistance;
-	double[] wheelSpeeds;
+	private Position drivenDistance;
+	private double[] wheelSpeeds;
+	private DcMotor[] wheelMotors;
 
-	void setVelocity(Velocity v);
-	void setMotorSpeeds(double[] v);
-	void step();
-	Velocity getDistance();
-	void stopMotors();
+	public void setVelocity(Velocity v);
+	protected void setMotorSpeeds(double[] v);
+	public void step();
+	public Velocity getDistance();
+	public void stopMotors();
 }
