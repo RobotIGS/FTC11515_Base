@@ -7,6 +7,8 @@ public class Robot {
     public Chassi chassi;
     protected Profile profile;
 
+    public Robot() {
+    }
 
     /**
      * Set acceleration profile
