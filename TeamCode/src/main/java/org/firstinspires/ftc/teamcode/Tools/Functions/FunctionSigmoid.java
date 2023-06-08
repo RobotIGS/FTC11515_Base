@@ -5,22 +5,23 @@ public class FunctionSigmoid extends FunctionBase {
     private double n;
     private double a;
     private double k;
-
+    private boolean acce;
     /**
      * f(x) = r - (e^(-(x-n)/a))^k
      * @param a shift of turning point and increase of slope
-     * @param r shift on y-axis
+     * @param r shift on y-axis (1<=r<=2), ideal r = 1
      * @param n shift on x-axis
      * @param k change of slope and turning point stays the same
      */
-    public FunctionSigmoid(double a, double r, double n, double k) {
-        this.r = r < 0 ? r = 1 : Math.abs(r);
-        this.n = n > 0 ? n = 0 : -Math.abs(n);
-        this.a = a == 0 ? 0.1 : a ;
-        this.k = k < 2 ? 2 : Math.abs(k);
+    public FunctionSigmoid(double a, double r, double n, double k, boolean acce) {
+        this.r = Math.min(2, Math.max(1,r));
+        this.n = n;
+        this.a = a > 0 ? a : 1;
+        this.k = k > 2 ? k : 2;
+        this.acce = acce;
     }
 
-    public double apply(double x) {return r - Math.exp(Math.pow(-((x-n)/a),k));};
-
-    }
-
+    public double apply(double x) {
+        return (acce ? 1 : -1) * (r - Math.exp(Math.pow(-((x-n)/a),k))) + (acce ? 0 : 1);
+    };
+}
