@@ -12,6 +12,7 @@ public class FunctionSigmoid extends FunctionBase {
      * @param r shift on y-axis (1<=r<=2), ideal r = 1
      * @param n shift on x-axis
      * @param k change of slope and turning point stays the same
+     * @param acce acceleration / deceleration
      */
     public FunctionSigmoid(double a, double r, double n, double k, boolean acce) {
         this.r = Math.min(2, Math.max(1,r));
