@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - main
 
 jobs:
   publish:
@@ -18,3 +17,4 @@ jobs:
           java-version: 17
           target-folder: javadoc 
           project: gradle
+          custom-command: javadoc -d doc/javadoc -cp ./Teamcode/src/main/java/,./FtcRobotController/src/main/java/ -subpackages org.firstinspires.ftc ./**/*.java
