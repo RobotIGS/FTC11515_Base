@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode.Tools.DTypes;
 
 public class Position2D {
-    double x;
-    double y;
-
+    private double x;
+    private double y;
 
     /**
      * create position object
@@ -77,5 +76,37 @@ public class Position2D {
 
         this.x = Math.cos(beta) * h;
         this.y = Math.sin(beta) * h;
+    }
+
+    /**
+     * return absolute value
+     * @return distance from origin
+     */
+    public double getAbsolute() {
+        return Math.sqrt(Math.pow(this.x,2) + Math.pow(this.y,2));
+    }
+
+    /**
+     * copy position object
+     * @return copy of object
+     */
+    public Position2D copy() {
+        return new Position2D(this.x, this.y);
+    }
+
+    /**
+     * normalize position (absolute value = 1)
+     * @return normalized copy
+     */
+    public Position2D getNormalization() {
+        if (this.x == 0.0 && this.y == 0)
+            return copy();
+        else if (this.x == 0.0)
+            return new Position2D(0.0,1);
+        else if (this.y == 0.0)
+            return new Position2D(1,0.0);
+
+        double alpha = Math.atan(this.y / this.x);
+        return new Position2D(Math.cos(alpha),Math.sin(alpha));
     }
 }
