@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode.Tools;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
 public abstract class ChassiBase implements Chassi {
-    private Position drivenDistance;
+    private Position2D drivenDistance;
     private double[] wheelSpeeds;
     private DcMotor[] wheelMotors;
 
@@ -14,7 +14,7 @@ public abstract class ChassiBase implements Chassi {
      * create chassi
      */
     public ChassiBase() {
-        drivenDistance = new Position();
+        drivenDistance = new Position2D();
     }
 
     /**
@@ -38,7 +38,7 @@ public abstract class ChassiBase implements Chassi {
      * @return driven distance
      */
     @Override
-    public Position getDrivenDistance() {
+    public Position2D getDrivenDistance() {
         return drivenDistance;
     }
 

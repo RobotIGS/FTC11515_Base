@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
 public class Robot {
     public FieldNavigation navi;
@@ -33,7 +33,10 @@ public class Robot {
      * @param wz rotation speed (+ => turn left)
      * @param p use of acceleration profile
      */
-    public void setSpeed(double vx, double vy, double wz, boolean p) {}
+    public void setSpeed(double vx, double vy, double wz, boolean p) {
+        navi.drive_speed(vx,vy,wz);
+        // TODO: handle profile parameter p
+    }
 
     /**
      * set robot speed not utilising the acceleration profile
@@ -50,29 +53,36 @@ public class Robot {
      * @param d relative or absolute target position
      * @param rel interpret d as a relative position
      */
-    public void drive(Position d, boolean rel) {
+    public void drive(Position2D d, boolean rel) {
+        if (rel)
+            navi.drive_rel(d);
+        else
+            navi.drive_pos(d);
     }
 
     /**
      * drive to relative position
      * @param d relative position
      */
-    public void drive(Position d) {
+    public void drive(Position2D d) {
         drive(d, true);
-    }
-
-    /**
-     * refresh
-     */
-    public void step() {
-	//TODO: run navi and 
     }
 
     /**
      * stop all
      */
     public void stop() {
-	chassi.stopMotors();
-	//TODO: add navi stop?
+        navi.stop();
+    	chassi.stopMotors();
+    }
+
+    /**
+     * refresh
+     */
+    public void step() {
+        navi.addDrivenDistance(chassi.getDrivenDistance());
+        navi.step();
+        chassi.setVelocity(navi.getVelocity());
+        chassi.step();
     }
 }
