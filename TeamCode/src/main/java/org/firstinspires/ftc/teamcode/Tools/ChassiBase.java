@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Tools;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
 public abstract class ChassiBase implements Chassi {
