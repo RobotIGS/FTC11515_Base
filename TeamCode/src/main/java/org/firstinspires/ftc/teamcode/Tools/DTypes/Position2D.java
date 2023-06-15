@@ -64,6 +64,13 @@ public class Position2D {
     }
 
     /**
+     * set x,y position
+     * @param x x position
+     * @param y y position
+     */
+    public void set(double x, double y) { this.x = x; this.y = y; }
+
+    /**
      * rotate position around origin
      * @param alpha rotation angle (mathematical positive)
      */

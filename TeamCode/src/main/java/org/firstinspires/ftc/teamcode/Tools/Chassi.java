@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
 public interface Chassi {

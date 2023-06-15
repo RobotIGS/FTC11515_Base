@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
 public class FieldNavigation {
@@ -116,9 +116,7 @@ public class FieldNavigation {
         if (driving)
            driving = false;
 
-        this.velocity.xVeloc = vx;
-        this.velocity.yVeloc = vy;
-        this.velocity.zVeloc = wz;
+        this.velocity.set(vx,vy,wz);
     }
 
     public void stop(){
@@ -140,8 +138,8 @@ public class FieldNavigation {
 
         if (driving) {
             distance = distance.getNormalization();
-            velocity.xVeloc = distance.getX();
-            velocity.yVeloc = distance.getY();
+            velocity.setVX(distance.getX());
+            velocity.setVY(distance.getY());
         }
     }
 }

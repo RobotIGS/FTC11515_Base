@@ -70,6 +70,8 @@ public class Velocity {
      */
     public void setWZ(double wz) { this.wz = wz; }
 
+    public void set(double vx, double vy, double wz) { this.vx = vx; this.vy = vy; this.wz = wz; }
+
     /**
      * return absolute value
      * @return get absolute velocity
