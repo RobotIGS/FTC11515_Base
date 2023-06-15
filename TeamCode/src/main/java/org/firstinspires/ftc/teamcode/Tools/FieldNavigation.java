@@ -103,7 +103,7 @@ public class FieldNavigation {
      * @param d the driven distance
      */
     public void addDrivenDistance(Position2D d) {
-        position.add(d);
+        position.add(d); // TODO: make sure that rotation is applied
     }
 
     /**

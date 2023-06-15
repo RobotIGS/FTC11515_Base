@@ -7,14 +7,16 @@ import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
 public abstract class ChassiBase implements Chassi {
     private Position2D drivenDistance;
-    private double[] wheelSpeeds;
+    protected double[] wheelSpeeds;
     private DcMotor[] wheelMotors;
 
     /**
      * create chassi
      */
-    public ChassiBase() {
+    public ChassiBase(int numWheels) {
         drivenDistance = new Position2D();
+        wheelMotors = new DcMotor[numWheels];
+        wheelSpeeds = new double[numWheels];
     }
 
     /**
