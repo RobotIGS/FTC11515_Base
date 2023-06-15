@@ -6,6 +6,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 public interface Chassi {
 	void setVelocity(Velocity v);
 	void step();
-	Position getDistance();
+	Position getDrivenDistance();
 	void stopMotors();
 }

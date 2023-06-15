@@ -38,7 +38,7 @@ public abstract class ChassiBase implements Chassi {
      * @return driven distance
      */
     @Override
-    public Position getDistance() {
+    public Position getDrivenDistance() {
         return drivenDistance;
     }
 
