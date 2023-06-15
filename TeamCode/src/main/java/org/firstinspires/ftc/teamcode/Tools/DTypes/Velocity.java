@@ -1,0 +1,94 @@
+package org.firstinspires.ftc.teamcode.Tools.DTypes;
+
+public class Velocity {
+    private double vx;
+    private double vy;
+    private double wz;
+
+    /**
+     * create velocity object
+     * @param vx x value
+     * @param vy y value
+     * @param wz rotation
+     */
+    public Velocity(double vx, double vy, double wz){
+        this.vx = vx;
+        this.vy = vy;
+        this.wz = wz;
+    }
+
+    /**
+     * create velocity object (v = 0)
+     */
+    public Velocity() { this(0.0,0.0,0.0); }
+
+    public void add(Velocity vel) {
+        this.vx += vel.vx;
+        this.vy += vel.vy;
+        this.wz += vel.wz;
+    }
+
+    public void subtract(Velocity vel){
+        this.vx -= vel.vx;
+        this.vy -= vel.vy;
+        this.wz -= vel.wz;
+    }
+
+    /**
+     * get x velocity
+     * @return x velocity
+     */
+    public double getVX() { return vx; }
+
+    /**
+     * get y velocity
+     * @return y velocity
+     */
+    public double getVY() { return vy; }
+
+    /**
+     * get rotation
+     * @return rotation
+     */
+    public double getWZ() { return wz; }
+
+    /**
+     * set x velocity
+     * @param vx x velocity
+     */
+    public void setVX(double vx) { this.vx = vx; }
+
+    /**
+     * set y velocity
+     * @param vy y velocity
+     */
+    public void setVY(double vy) { this.vx = vy; }
+
+    /**
+     * set rotation
+     * @param wz rotation
+     */
+    public void setWZ(double wz) { this.wz = wz; }
+
+    /**
+     * return absolute value
+     * @return get absolute velocity
+     */
+    public double getAbsolute() { return Math.sqrt(Math.pow(vx,2) + Math.pow(vy,2) + Math.pow(wz,2)); }
+
+    /**
+     * copy velocity object
+     * @return copy of object
+     */
+    public Velocity copy() { return new Velocity(this.vx, this.vy, this.wz); }
+
+    /**
+     * normalize velocity
+     * @return normalized copy
+     */
+    public Velocity getNormalization(){
+        // TODO getNormalization
+        return null;
+    }
+
+}

@@ -80,7 +80,7 @@ public class Position2D {
 
     /**
      * return absolute value
-     * @return distance from origin
+     * @return get absolute distance
      */
     public double getAbsolute() {
         return Math.sqrt(Math.pow(this.x,2) + Math.pow(this.y,2));
