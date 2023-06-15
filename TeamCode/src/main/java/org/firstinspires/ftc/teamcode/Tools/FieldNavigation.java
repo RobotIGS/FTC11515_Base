@@ -121,6 +121,10 @@ public class FieldNavigation {
         this.velocity.zVeloc = wz;
     }
 
+    public void stop(){
+        drive_speed(0,0,0);
+    }
+
     /**
      * refresh
      */
@@ -131,7 +135,7 @@ public class FieldNavigation {
         distance.subract(position);
 
         if (Math.abs(distance.getAbsolute()) <= this.driving_accuracy) {
-            drive_speed(0,0,0);
+            stop();
         }
 
         if (driving) {
