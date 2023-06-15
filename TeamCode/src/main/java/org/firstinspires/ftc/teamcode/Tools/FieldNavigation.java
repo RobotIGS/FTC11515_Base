@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.Tools;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
-import java.util.Date;
-
 public class FieldNavigation {
     private boolean driving;
     private Position2D position;
@@ -12,7 +10,6 @@ public class FieldNavigation {
     private Position2D target_position;
     private double driving_accuracy;
     private Velocity velocity;
-    private Date last_exec;
 
     /**
      * create new FieldNavigation object with given position and rotation
@@ -105,11 +102,24 @@ public class FieldNavigation {
      * calculate current position utilising the driven distance since the last refresh
      * @param d the driven distance
      */
-    public void calculatePosition(Position2D d) {
-        // TODO: try replace with operator
+    public void addDrivenDistance(Position2D d) {
         position.add(d);
     }
 
+    /**
+     * manual drive
+     * @param vx forward speed (+ => forward)
+     * @param vy sideways speed (+ => left)
+     * @param wz rotation speed (+ => turn left)
+     */
+    public void drive_speed(double vx, double vy, double wz){
+        if (driving)
+           driving = false;
+
+        this.velocity.xVeloc = vx;
+        this.velocity.yVeloc = vy;
+        this.velocity.zVeloc = wz;
+    }
 
     /**
      * refresh
@@ -121,8 +131,7 @@ public class FieldNavigation {
         distance.subract(position);
 
         if (Math.abs(distance.getAbsolute()) <= this.driving_accuracy) {
-            driving = false;
-            velocity = new Velocity();
+            drive_speed(0,0,0);
         }
 
         if (driving) {
@@ -130,6 +139,5 @@ public class FieldNavigation {
             velocity.xVeloc = distance.getX();
             velocity.yVeloc = distance.getY();
         }
-        // TODO: unset driving if target reached (with driving_accuracy)
     }
 }
