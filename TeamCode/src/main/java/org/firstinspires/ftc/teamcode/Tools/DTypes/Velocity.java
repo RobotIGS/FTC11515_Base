@@ -89,8 +89,23 @@ public class Velocity {
      * @return normalized copy
      */
     public Velocity getNormalization(){
-        // TODO getNormalization
-        return null;
-    }
+        double new_wz;
+        double alpha;
 
+        // wz has to be in [-1:1]
+        new_wz = Math.max(-1.0, Math.min(1.0, wz));
+
+        // null vector (vx,vy)
+        if (vx == 0.0 && vy == 0.0) return new Velocity(0.0, 0.0, new_wz);
+
+        // one dim
+        else if (vx == 0.0)
+            return new Velocity(0.0, 1.0, new_wz);
+        else if (vy == 0.0)
+            return new Velocity(1.0, 0.0, new_wz);
+
+        // normalize
+        alpha = Math.atan(vy / vx);
+        return new Velocity(Math.cos(alpha), Math.sin(alpha), new_wz);
+    }
 }

@@ -73,7 +73,7 @@ public class Robot {
      */
     public void stop() {
         navi.stop();
-    	chassi.stopMotors();
+        chassi.stopMotors();
     }
 
     /**
