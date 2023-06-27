@@ -106,13 +106,17 @@ public class Position2D {
      * @return normalized copy
      */
     public Position2D getNormalization() {
-        if (this.x == 0.0 && this.y == 0)
+        // null vector
+        if (this.x == 0.0 && this.y == 0.0)
             return copy();
-        else if (this.x == 0.0)
-            return new Position2D(0.0,1);
-        else if (this.y == 0.0)
-            return new Position2D(1,0.0);
 
+        // one dim
+        else if (this.x == 0.0)
+            return new Position2D(0.0,1.0);
+        else if (this.y == 0.0)
+            return new Position2D(1.0,0.0);
+
+        // normalize
         double alpha = Math.atan(this.y / this.x);
         return new Position2D(Math.cos(alpha),Math.sin(alpha));
     }
