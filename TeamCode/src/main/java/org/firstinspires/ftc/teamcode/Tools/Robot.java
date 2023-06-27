@@ -7,7 +7,10 @@ public class Robot {
     public Chassi chassi;
     protected Profile profile;
 
-    public Robot() {
+    // TODO: javadoc
+    public Robot(FieldNavigation navi, Chassi chassi) {
+        this.navi = navi;
+        this.chassi = chassi;
     }
 
     /**

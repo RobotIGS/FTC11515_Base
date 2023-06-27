@@ -22,6 +22,7 @@ public class FieldNavigation {
         this.rotation = rotation;
         this.target_position = position;
         this.driving_accuracy = 1;
+        this.velocity = new Velocity();
     }
 
     /**
@@ -132,11 +133,10 @@ public class FieldNavigation {
         distance = target_position.copy();
         distance.subract(position);
 
-        if (Math.abs(distance.getAbsolute()) <= this.driving_accuracy) {
-            stop();
-        }
-
         if (driving) {
+            if (Math.abs(distance.getAbsolute()) <= this.driving_accuracy)
+                stop();
+
             distance = distance.getNormalization();
             velocity.setVX(distance.getX());
             velocity.setVY(distance.getY());

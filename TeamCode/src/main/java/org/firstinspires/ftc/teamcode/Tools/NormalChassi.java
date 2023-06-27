@@ -21,15 +21,9 @@ public class NormalChassi extends ChassiBase {
     @Override
     public void setVelocity(Velocity v) {
         // TODO: rotate
-        wheelSpeeds[0] =  v.getVX() + v.getWZ();
-        wheelSpeeds[1] =  v.getVX() + v.getWZ();
-        wheelSpeeds[2] = -v.getVX() + v.getWZ();
-        wheelSpeeds[3] = -v.getVX() + v.getWZ();
-    }
-
-    @Override
-    public void step() {
-        // TODO: calculate driven distance
-        super.step();
+        wheelSpeeds[0] = -v.getVX() - v.getWZ();
+        wheelSpeeds[1] =  v.getVX() - v.getWZ();
+        wheelSpeeds[2] =  v.getVX() - v.getWZ();
+        wheelSpeeds[3] = -v.getVX() - v.getWZ();
     }
 }
