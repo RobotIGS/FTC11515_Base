@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
@@ -17,6 +18,14 @@ public abstract class ChassiBase implements Chassi {
         drivenDistance = new Position2D();
         wheelMotors = new DcMotor[numWheels];
         wheelSpeeds = new double[numWheels];
+    }
+
+    // TODO: javadoc
+    public void populateMotorArray(HardwareMap hw_map) {
+        for (int i = 0; i < this.wheelMotors.length; i++) {
+            wheelMotors[i] = hw_map.get(DcMotor.class, String.format("wheelMotor_%d", i));
+            wheelSpeeds[i] = 0.0;
+        }
     }
 
     /**
