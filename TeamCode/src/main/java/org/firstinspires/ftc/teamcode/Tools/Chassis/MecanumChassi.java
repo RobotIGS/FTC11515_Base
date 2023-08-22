@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Tools;
+package org.firstinspires.ftc.teamcode.Tools.Chassis;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
 //TODO: all ig
 public class MecanumChassi extends ChassiBase {
-    public MecanumChassi(int numWheels) {
-        super(numWheels);
+    public MecanumChassi() {
+        super(4);
     }
 
     @Override
