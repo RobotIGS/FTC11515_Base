@@ -82,5 +82,12 @@ lint/tmp/
 .gradle/*
 
 .idea/
+.settings/
+.project
+.classpath
 
-local.properties
+build/
+*.log
+*.core
+
+/tags
