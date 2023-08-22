@@ -6,10 +6,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
+//TODO add l_x, l_y
 public abstract class ChassiBase implements Chassi {
-    private Position2D drivenDistance;
+    protected Position2D drivenDistance;
     protected double[] wheelSpeeds;
+    protected double[] wheelSpeedsFactors;
     private DcMotor[] wheelMotors;
+    protected int[] deltaWheelMotorSteps;
 
     /**
      * create chassi
@@ -18,6 +21,8 @@ public abstract class ChassiBase implements Chassi {
         drivenDistance = new Position2D();
         wheelMotors = new DcMotor[numWheels];
         wheelSpeeds = new double[numWheels];
+        wheelSpeedsFactors = new double[numWheels];
+        deltaWheelMotorSteps = new int[numWheels];
     }
 
     // TODO: javadoc
@@ -25,7 +30,14 @@ public abstract class ChassiBase implements Chassi {
         for (int i = 0; i < this.wheelMotors.length; i++) {
             wheelMotors[i] = hw_map.get(DcMotor.class, String.format("wheelMotor_%d", i));
             wheelSpeeds[i] = 0.0;
+            wheelSpeedsFactors[i] = 1.0;
+            deltaWheelMotorSteps[i] = wheelMotors[i].getCurrentPosition();
         }
+    }
+
+    public void setFactor(int wheelIndex, double factor) {
+        if (wheelIndex > 0 && wheelIndex < wheelSpeedsFactors.length)
+            wheelSpeedsFactors[wheelIndex] = factor;
     }
 
     /**
@@ -33,7 +45,7 @@ public abstract class ChassiBase implements Chassi {
      */
     private void setMotorSpeeds() {
         for (int i = 0; i < wheelMotors.length; i++) {
-            wheelMotors[i].setPower(wheelSpeeds[i]);
+            wheelMotors[i].setPower(wheelSpeeds[i] * wheelSpeedsFactors[i]);
         }
     }
 
@@ -41,14 +53,12 @@ public abstract class ChassiBase implements Chassi {
      * set wheel speeds based on velocity
      * @param v robot velocity
      */
-    @Override
     public abstract void setVelocity(Velocity v);
 
     /**
      * get driven distance since last step
      * @return driven distance
      */
-    @Override
     public Position2D getDrivenDistance() {
         return drivenDistance;
     }
@@ -56,18 +66,25 @@ public abstract class ChassiBase implements Chassi {
     /**
      * stop chassi movement
      */
-    @Override
     public void stopMotors() {
         setVelocity(new Velocity());
         setMotorSpeeds();
     }
 
     /**
-     * update
+     * update info about delta steps of motors
      */
-    @Override
-    public void step() {
-        setMotorSpeeds();
+    private void updateMotorSteps() {
+        for (int i=0; i<deltaWheelMotorSteps.length; i++) {
+            deltaWheelMotorSteps[i] = wheelMotors[i].getCurrentPosition() - deltaWheelMotorSteps[i];
+        }
     }
 
+    /**
+     * update
+     */
+    public void step() {
+        setMotorSpeeds();
+        updateMotorSteps();
+    }
 }

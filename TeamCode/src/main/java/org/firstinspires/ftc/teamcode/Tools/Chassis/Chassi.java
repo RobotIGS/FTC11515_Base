@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
 public interface Chassi {
 	void populateMotorArray(HardwareMap hw_map);
+	void setFactor(int wheelIndex, double factor);
 	void setVelocity(Velocity v);
 	void step();
 	Position2D getDrivenDistance();

@@ -26,4 +26,19 @@ public class NormalChassi extends ChassiBase {
         wheelSpeeds[2] =  v.getVX() - v.getWZ();
         wheelSpeeds[3] = -v.getVX() - v.getWZ();
     }
+
+    private void calculateDrivenDistance() {
+        //drivenDistance;
+        //deltaWheelMotorSteps;
+    }
+
+    @Override
+    public void step() {
+        super.step();
+
+        // calculate driven distance
+
+
+        drivenDistance = new Position2D(0.0,0.0);
+    }
 }
