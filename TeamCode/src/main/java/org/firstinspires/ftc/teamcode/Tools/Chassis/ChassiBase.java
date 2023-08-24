@@ -6,12 +6,24 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
+/*
+vx
+
+0.0+0.0
+    | +0.0 |
+    | +0.0 |
+    |  0.0 |
++0.0+-----+ 0.0
+ */
+
 //TODO add l_x, l_y
 public abstract class ChassiBase implements Chassi {
+    protected  Velocity velocity;
     protected Position2D drivenDistance;
     protected double[] wheelSpeeds;
     protected double[] wheelSpeedsFactors;
     private DcMotor[] wheelMotors;
+    private int[] wheelMotorSteps;
     protected int[] deltaWheelMotorSteps;
 
     /**
@@ -22,6 +34,7 @@ public abstract class ChassiBase implements Chassi {
         wheelMotors = new DcMotor[numWheels];
         wheelSpeeds = new double[numWheels];
         wheelSpeedsFactors = new double[numWheels];
+        wheelMotorSteps = new int[numWheels];
         deltaWheelMotorSteps = new int[numWheels];
     }
 
@@ -31,7 +44,8 @@ public abstract class ChassiBase implements Chassi {
             wheelMotors[i] = hw_map.get(DcMotor.class, String.format("wheelMotor_%d", i));
             wheelSpeeds[i] = 0.0;
             wheelSpeedsFactors[i] = 1.0;
-            deltaWheelMotorSteps[i] = wheelMotors[i].getCurrentPosition();
+            wheelMotorSteps[i] = wheelMotors[i].getCurrentPosition();
+            deltaWheelMotorSteps[i] = wheelMotorSteps[i];
         }
     }
 
@@ -51,9 +65,11 @@ public abstract class ChassiBase implements Chassi {
 
     /**
      * set wheel speeds based on velocity
-     * @param v robot velocity
+     * @param velocity robot velocity
      */
-    public abstract void setVelocity(Velocity v);
+    public void setVelocity(Velocity velocity) {
+        this.velocity = velocity;
+    }
 
     /**
      * get driven distance since last step
@@ -75,9 +91,28 @@ public abstract class ChassiBase implements Chassi {
      * update info about delta steps of motors
      */
     private void updateMotorSteps() {
+        int steps;
         for (int i=0; i<deltaWheelMotorSteps.length; i++) {
-            deltaWheelMotorSteps[i] = wheelMotors[i].getCurrentPosition() - deltaWheelMotorSteps[i];
+            steps = wheelMotors[i].getCurrentPosition();
+            deltaWheelMotorSteps[i] = steps - wheelMotorSteps[i];
+            wheelMotorSteps[i] = steps;
         }
+    }
+
+    /**
+     * debug info
+     */
+    public String debug() {
+        String ret = String.format(
+                "--- Chassi Debug ---\nvelocity :: vx=%+1.2f vy=%+1.2f wz=%+1.2f\ndrivenDistance :: x=%+2.2f y=%+2.2f\n",
+                velocity.getVX(), velocity.getVY(), velocity.getWZ(), drivenDistance.getX(), drivenDistance.getY());
+
+        // add wheel debug
+        for (int i=0; i<wheelMotors.length; i++) {
+            ret += String.format("Wheel %d :: v=%+1.2f dstep=%+3d\n", i, wheelSpeeds[i], deltaWheelMotorSteps[i]);
+        }
+
+        return ret;
     }
 
     /**

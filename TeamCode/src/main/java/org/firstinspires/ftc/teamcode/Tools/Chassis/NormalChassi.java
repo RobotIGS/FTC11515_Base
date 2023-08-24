@@ -19,12 +19,12 @@ public class NormalChassi extends ChassiBase {
     }
 
     @Override
-    public void setVelocity(Velocity v) {
+    public void setVelocity(Velocity velocity) {
         // TODO: rotate
-        wheelSpeeds[0] = -v.getVX() - v.getWZ();
-        wheelSpeeds[1] =  v.getVX() - v.getWZ();
-        wheelSpeeds[2] =  v.getVX() - v.getWZ();
-        wheelSpeeds[3] = -v.getVX() - v.getWZ();
+        wheelSpeeds[0] = -velocity.getVX() - velocity.getWZ();
+        wheelSpeeds[1] =  velocity.getVX() - velocity.getWZ();
+        wheelSpeeds[2] =  velocity.getVX() - velocity.getWZ();
+        wheelSpeeds[3] = -velocity.getVX() - velocity.getWZ();
     }
 
     private void calculateDrivenDistance() {

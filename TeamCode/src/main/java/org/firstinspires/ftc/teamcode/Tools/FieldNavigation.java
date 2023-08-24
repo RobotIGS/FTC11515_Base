@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Tools;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
+import java.util.Locale;
+
 public class FieldNavigation {
     private boolean driving;
     private Position2D position;
@@ -104,6 +106,7 @@ public class FieldNavigation {
      * @param d the driven distance
      */
     public void addDrivenDistance(Position2D d) {
+        d.rotate(0.0); // TODO use gyro;
         position.add(d); // TODO: make sure that rotation is applied
     }
 
@@ -122,6 +125,11 @@ public class FieldNavigation {
 
     public void stop(){
         drive_speed(0,0,0);
+    }
+
+
+    public String debug() {
+        return String.format("--- FieldNavigation Debug ---\nposition :: x=%+3.1f y=%+3.1f\n",position.getX(),position.getY());
     }
 
     /**

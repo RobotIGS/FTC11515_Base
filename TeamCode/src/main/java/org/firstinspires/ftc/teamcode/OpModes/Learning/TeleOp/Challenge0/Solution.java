@@ -2,6 +2,7 @@
 package org.firstinspires.ftc.teamcode.OpModes.Learning.TeleOp.Challenge0;
 
 // must have imports for TeleOp (start with com.qualcomm)
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 // imports from org.firstinspires.ftc.teamcode
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Tools.Robot;
 
 // declare as TeleOp to make it appear on the selection screen
 @TeleOp(name="Challenge 0", group="Challenges")
-//@Disabled // to disable this TeleOp (hide it on the screen)
+@Disabled // to disable this TeleOp (hide it on the screen)
 public class Solution extends BaseTeleOp {
     // declaration of important objects
     private Robot robot;
