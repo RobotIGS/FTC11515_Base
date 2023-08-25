@@ -106,8 +106,8 @@ public class FieldNavigation {
      * @param d the driven distance
      */
     public void addDrivenDistance(Position2D d) {
-        d.rotate(0.0); // TODO use gyro;
-        position.add(d); // TODO: make sure that rotation is applied
+        d.rotate(rotation);
+        position.add(d);
     }
 
     /**

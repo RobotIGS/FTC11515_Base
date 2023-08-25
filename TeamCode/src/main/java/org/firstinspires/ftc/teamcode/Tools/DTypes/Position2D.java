@@ -68,21 +68,23 @@ public class Position2D {
      * @param x x position
      * @param y y position
      */
-    public void set(double x, double y) { this.x = x; this.y = y; }
+    public void set(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 
     /**
      * rotate position around origin
      * @param alpha rotation angle (mathematical positive)
      */
     public void rotate(double alpha){
-        double beta;
-        double h;
+        // see rotation matrix
+        double sin = Math.sin(alpha);
+        double cos = Math.cos(alpha);
+        double x = this.x;
 
-        beta = Math.atan(y/x) + alpha;
-        h = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
-
-        this.x = Math.cos(beta) * h;
-        this.y = Math.sin(beta) * h;
+        this.x = x * cos - y * sin;
+        this.y = x * sin + y * cos;
     }
 
     /**
