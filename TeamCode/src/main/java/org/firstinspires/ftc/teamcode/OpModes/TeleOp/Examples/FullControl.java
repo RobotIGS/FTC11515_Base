@@ -28,7 +28,7 @@ public class FullControl extends BaseTeleOp {
 
     @Override
     public void run() {
-        robot.setSpeed(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x);
+        robot.setSpeed(-gamepad1.left_stick_y*0.5, -gamepad1.left_stick_x*0.5, -gamepad1.right_stick_x*0.5);
         robot.step();
         telemetry.addLine(chassi.debug());
         telemetry.addLine(navi.debug());

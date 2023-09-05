@@ -44,6 +44,8 @@ public abstract class ChassiBase implements Chassi {
             wheelMotors[i] = hw_map.get(DcMotor.class, String.format("wheelMotor_%d", i));
             wheelSpeeds[i] = 0.0;
             wheelSpeedsFactors[i] = 1.0;
+            wheelMotors[i].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            wheelMotors[i].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             wheelMotorSteps[i] = wheelMotors[i].getCurrentPosition();
             deltaWheelMotorSteps[i] = wheelMotorSteps[i];
         }
@@ -109,7 +111,7 @@ public abstract class ChassiBase implements Chassi {
 
         // add wheel debug
         for (int i=0; i<wheelMotors.length; i++) {
-            ret += String.format("Wheel %d :: v=%+1.2f dstep=%+3d\n", i, wheelSpeeds[i], deltaWheelMotorSteps[i]);
+            ret += String.format("Wheel %d :: v=%+1.2f  steps=%+5d  dstep=%+3d\n", i, wheelSpeeds[i], wheelMotors[i].getCurrentPosition(), deltaWheelMotorSteps[i]);
         }
 
         return ret;
