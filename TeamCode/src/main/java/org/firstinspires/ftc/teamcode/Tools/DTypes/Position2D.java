@@ -77,6 +77,7 @@ public class Position2D {
      * rotate position around origin
      * @param alpha rotation angle (mathematical positive)
      */
+    //TODO Check method rotate
     public void rotate(double alpha){
         // see rotation matrix
         double sin = Math.sin(alpha);

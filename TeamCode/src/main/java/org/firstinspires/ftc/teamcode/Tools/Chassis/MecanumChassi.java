@@ -32,15 +32,15 @@ public class MecanumChassi extends ChassiBase {
         // TODO: add source (vy inverted + right side inverted)
         wheelSpeeds[0] =  (velocity.getVX() + velocity.getVY() - l * velocity.getWZ()) * ONE_OVER_R;
         wheelSpeeds[1] = -(velocity.getVX() - velocity.getVY() + l * velocity.getWZ()) * ONE_OVER_R; // negate because right
-        wheelSpeeds[2] = -(velocity.getVX() + velocity.getVY() + l * velocity.getWZ()) * ONE_OVER_R; // negate because right
         wheelSpeeds[3] =  (velocity.getVX() - velocity.getVY() - l * velocity.getWZ()) * ONE_OVER_R;
+        wheelSpeeds[2] = -(velocity.getVX() + velocity.getVY() + l * velocity.getWZ()) * ONE_OVER_R; // negate because right
 
         // normalize the values
         vm = Math.max(Math.max(wheelSpeeds[0], wheelSpeeds[1]), Math.max(wheelSpeeds[2], wheelSpeeds[3]));
-        wheelSpeeds[0] /= vm;// .. / max_speed;
-        wheelSpeeds[1] /= vm;
-        wheelSpeeds[2] /= vm;
-        wheelSpeeds[3] /= vm;
+        wheelSpeeds[0] *= velocity.getAbsolute() / vm;
+        wheelSpeeds[1] *= velocity.getAbsolute() / vm;
+        wheelSpeeds[2] *= velocity.getAbsolute() / vm;
+        wheelSpeeds[3] *= velocity.getAbsolute() / vm;
 
     }
 
@@ -48,10 +48,8 @@ public class MecanumChassi extends ChassiBase {
     public void step() {
         super.step();
 
-
-
-        double dx =  ( deltaWheelMotorSteps[0] + deltaWheelMotorSteps[1] + deltaWheelMotorSteps[2] + deltaWheelMotorSteps[3]) * R_OVER_4;
-        double dy = -(-deltaWheelMotorSteps[0] + deltaWheelMotorSteps[1] + deltaWheelMotorSteps[2] - deltaWheelMotorSteps[3]) * R_OVER_4;
+        double dx = ( deltaWheelMotorSteps[0] - deltaWheelMotorSteps[1] - deltaWheelMotorSteps[2] + deltaWheelMotorSteps[3]) * R_OVER_4;
+        double dy = (-deltaWheelMotorSteps[0] + deltaWheelMotorSteps[1] - deltaWheelMotorSteps[2] - deltaWheelMotorSteps[3]) * R_OVER_4;
         //TODO comments
         dx /= 751.8;
         dy /= 751.8;
