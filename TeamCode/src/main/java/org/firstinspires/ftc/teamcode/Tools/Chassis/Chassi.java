@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
+//TODO order
 
 public interface Chassi {
 	void populateMotorArray(HardwareMap hw_map);
@@ -13,4 +14,5 @@ public interface Chassi {
 	Position2D getDrivenDistance();
 	void stopMotors();
 	String debug();
+	double getRotation();
 }

@@ -101,6 +101,10 @@ public abstract class ChassiBase implements Chassi {
         }
     }
 
+    public double getRotation() {
+
+    }
+
     /**
      * debug info
      */
