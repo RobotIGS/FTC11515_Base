@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Tools.Chassis;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 //TODO order
@@ -14,5 +15,6 @@ public interface Chassi {
 	Position2D getDrivenDistance();
 	void stopMotors();
 	String debug();
-	double getRotation();
+	float getRotation();
+	void setRotation(float rotation);
 }

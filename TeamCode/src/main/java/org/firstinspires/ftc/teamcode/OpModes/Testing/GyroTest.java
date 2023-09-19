@@ -4,10 +4,14 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.OpModes.TeleOp.BaseTeleOp;
 @TeleOp
 public class GyroTest extends BaseTeleOp {
     private BNO055IMU imu;
+
     @Override
     public void initialize() {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -24,7 +28,9 @@ public class GyroTest extends BaseTeleOp {
 
     @Override
     public void run() {
-        telemetry.addData("AngularOrientation",imu.getAngularOrientation());
+        telemetry.addData("AngularOrientation (XYZ) in deg", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES));
+        telemetry.addData("getAcceleration", imu.getAcceleration());
+        telemetry.addData("Position", imu.getPosition());
         telemetry.update();
     }
 }

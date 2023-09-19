@@ -1,8 +1,13 @@
 package org.firstinspires.ftc.teamcode.Tools.Chassis;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
@@ -18,6 +23,9 @@ vx
 
 //TODO add l_x, l_y
 public abstract class ChassiBase implements Chassi {
+    protected BNO055IMU imu;
+    protected BNO055IMU.Parameters imu_prameters;
+
     protected  Velocity velocity;
     protected Position2D drivenDistance;
     protected double[] wheelSpeeds;
@@ -25,11 +33,23 @@ public abstract class ChassiBase implements Chassi {
     private DcMotor[] wheelMotors;
     private int[] wheelMotorSteps;
     protected int[] deltaWheelMotorSteps;
+    private float start_rotation;
+    private float rotation;
 
     /**
      * create chassi
      */
     public ChassiBase(int numWheels) {
+        imu_prameters = new BNO055IMU.Parameters();
+        imu_prameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        imu_prameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        imu_prameters.calibrationDataFile = "BNO055IMUCalibration.jason";
+        imu_prameters.loggingEnabled = true;
+        imu_prameters.loggingTag = "IMU";
+        imu_prameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+        start_rotation = 0;
+        rotation = 0;
+
         drivenDistance = new Position2D();
         wheelMotors = new DcMotor[numWheels];
         wheelSpeeds = new double[numWheels];
@@ -49,6 +69,10 @@ public abstract class ChassiBase implements Chassi {
             wheelMotorSteps[i] = wheelMotors[i].getCurrentPosition();
             deltaWheelMotorSteps[i] = wheelMotorSteps[i];
         }
+
+        imu = hw_map.get(BNO055IMU.class,"imu");
+        imu.initialize(imu_prameters);
+        start_rotation = imu.getAngularOrientation().firstAngle;
     }
 
     public void setFactor(int wheelIndex, double factor) {
@@ -101,8 +125,12 @@ public abstract class ChassiBase implements Chassi {
         }
     }
 
-    public double getRotation() {
+    public void setRotation(float rotation) {
+        // TODO calculate and set offset
+    }
 
+    public float getRotation() {
+        return rotation;
     }
 
     /**
@@ -110,8 +138,8 @@ public abstract class ChassiBase implements Chassi {
      */
     public String debug() {
         String ret = String.format(
-                "--- Chassi Debug ---\nvelocity :: vx=%+1.2f vy=%+1.2f wz=%+1.2f\ndrivenDistance :: x=%+2.2f y=%+2.2f\n",
-                velocity.getVX(), velocity.getVY(), velocity.getWZ(), drivenDistance.getX(), drivenDistance.getY());
+                "--- Chassi Debug ---\nvelocity :: vx=%+1.2f vy=%+1.2f wz=%+1.2f\ndrivenDistance :: x=%+2.2f y=%+2.2f\nrotation :: %+3.2f\n",
+                velocity.getVX(), velocity.getVY(), velocity.getWZ(), drivenDistance.getX(), drivenDistance.getY(), getRotation());
 
         // add wheel debug
         for (int i=0; i<wheelMotors.length; i++) {
@@ -121,10 +149,15 @@ public abstract class ChassiBase implements Chassi {
         return ret;
     }
 
+    private void calculateRotation() {
+        rotation = imu.getAngularOrientation().firstAngle; // Todo use starting rotation
+    }
+
     /**
      * update
      */
     public void step() {
+        calculateRotation();
         setMotorSpeeds();
         updateMotorSteps();
     }
