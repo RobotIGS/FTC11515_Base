@@ -17,4 +17,5 @@ public interface Chassi {
 	String debug();
 	float getRotation();
 	void setRotation(float rotation);
+	void setRotationAxis(int axis);
 }
