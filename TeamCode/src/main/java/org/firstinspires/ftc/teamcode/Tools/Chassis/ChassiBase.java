@@ -129,7 +129,7 @@ public abstract class ChassiBase implements Chassi {
         rotation_offset = -getRawRotation() + rotation;
     }
 
-    public void setRotation_axis(int axis) {
+    public void setRotationAxis(int axis) {
         rotation_axis = axis;
     }
 

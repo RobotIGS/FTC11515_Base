@@ -80,8 +80,8 @@ public class Position2D {
     //TODO Check method rotate
     public void rotate(double alpha){
         // see rotation matrix
-        double sin = Math.sin(alpha);
-        double cos = Math.cos(alpha);
+        double sin = Math.sin(Math.toRadians(alpha));
+        double cos = Math.cos(Math.toRadians(alpha));
         double x = this.x;
 
         this.x = x * cos - y * sin;

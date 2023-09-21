@@ -84,6 +84,7 @@ public class Robot {
      * refresh
      */
     public void step() {
+        navi.setRotation(chassi.getRotation());
         navi.addDrivenDistance(chassi.getDrivenDistance());
         navi.step();
         chassi.setVelocity(navi.getVelocity());
