@@ -115,12 +115,14 @@ public class Position2D {
 
         // one dim
         else if (this.x == 0.0)
-            return new Position2D(0.0,1.0);
+            return new Position2D(0.0,this.y>0?1.0:-1.0);
         else if (this.y == 0.0)
-            return new Position2D(1.0,0.0);
+            return new Position2D(this.x>0?1.0:-1.0,0.0);
 
         // normalize
         double alpha = Math.atan(this.y / this.x);
-        return new Position2D(Math.cos(alpha),Math.sin(alpha));
+        boolean x = this.x > 0;
+        boolean y = this.y > 0;
+        return new Position2D((x?1:.1)*Math.cos(alpha),(y?1:-1)*Math.sin(alpha));
     }
 }

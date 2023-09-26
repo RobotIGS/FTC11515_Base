@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
+import android.annotation.SuppressLint;
+
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
@@ -12,6 +14,8 @@ public class FieldNavigation {
     private Position2D target_position;
     private double driving_accuracy;
     private Velocity velocity;
+
+    public Position2D distance;
 
     /**
      * create new FieldNavigation object with given position and rotation
@@ -129,7 +133,17 @@ public class FieldNavigation {
 
 
     public String debug() {
-        return String.format("--- FieldNavigation Debug ---\nposition :: x=%+3.1f y=%+3.1f\n",position.getX(),position.getY());
+        String ret = "--- FieldNavigation Debug ---\n";
+        ret += String.format("driving :: %s\ntarget position :: x=%+3.1f y=%+3.1f\n",
+                (this.driving?"True":"False"), target_position.getX(), target_position.getY());
+        ret += String.format("position :: x=%+3.1f y=%+3.1f\n",
+                position.getX(), position.getY());
+        ret += String.format("velocity :: x=%+1.2f y=%+1.2f wz=%+1.2f\n",
+                velocity.getVX(), velocity.getVY(), velocity.getWZ());
+
+        ret += String.format("DIST :: %f %f\n", distance.getX(), distance.getY());
+
+        return ret;
     }
 
     /**
@@ -137,6 +151,7 @@ public class FieldNavigation {
      */
     public void step() {
         Position2D distance;
+        double quad = 0;
 
         distance = target_position.copy();
         distance.subract(position);
@@ -146,8 +161,12 @@ public class FieldNavigation {
                 stop();
 
             distance = distance.getNormalization();
-            velocity.setVX(distance.getX());
-            velocity.setVY(distance.getY());
+
+            distance.rotate(-this.rotation);
+            this.distance = distance;
+            velocity.set(distance.getX()*0.3, distance.getY()*0.3, 0.0);
+        } else {
+            velocity.set(0.0,0.0,0.0); // TODO remove this
         }
     }
 }

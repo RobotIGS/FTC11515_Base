@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp.Examples;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Tools.Robot;
 import java.util.Date;
 
 @TeleOp(name="FullControl", group="Examples")
+//@Disabled
 public class FullControl extends BaseTeleOp {
     private Robot robot;
     private FieldNavigation navi;
