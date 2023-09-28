@@ -22,6 +22,8 @@ public class FieldNavigation {
      * @param position position of the robot in CM
      * @param rotation rotation of the robot in Degrees
      */
+
+    // TODO remove rotation as it is part of chassi in the constructor
     public FieldNavigation(Position2D position, double rotation) {
         this.driving = false;
         this.position = position;
@@ -128,7 +130,7 @@ public class FieldNavigation {
     }
 
     public void stop(){
-        drive_speed(0,0,0);
+        drive_speed(0.0,0.0,0.0);
     }
 
 
@@ -136,13 +138,11 @@ public class FieldNavigation {
         String ret = "--- FieldNavigation Debug ---\n";
         ret += String.format("driving :: %s\ntarget position :: x=%+3.1f y=%+3.1f\n",
                 (this.driving?"True":"False"), target_position.getX(), target_position.getY());
+        ret += String.format("distance :: x=%+3.1f %+3.1f\n", this.distance.getX(), this.distance.getY());
         ret += String.format("position :: x=%+3.1f y=%+3.1f\n",
                 position.getX(), position.getY());
         ret += String.format("velocity :: x=%+1.2f y=%+1.2f wz=%+1.2f\n",
                 velocity.getVX(), velocity.getVY(), velocity.getWZ());
-
-        ret += String.format("DIST :: %f %f\n", distance.getX(), distance.getY());
-
         return ret;
     }
 
@@ -150,23 +150,23 @@ public class FieldNavigation {
      * refresh
      */
     public void step() {
-        Position2D distance;
-        double quad = 0;
-
-        distance = target_position.copy();
-        distance.subract(position);
-
         if (driving) {
+            // calculate the distance to the target position
+            this.distance = target_position.copy();
+            this.distance.subract(position);
+
+            // test if in range of the target position (reached)
             if (Math.abs(distance.getAbsolute()) <= this.driving_accuracy)
                 stop();
 
-            distance = distance.getNormalization();
+            else {
+                // calculate velocity for the chassi
+                Position2D distance = this.distance.getNormalization();
+                distance.rotate(-this.rotation);
 
-            distance.rotate(-this.rotation);
-            this.distance = distance;
-            velocity.set(distance.getX()*0.3, distance.getY()*0.3, 0.0);
-        } else {
-            velocity.set(0.0,0.0,0.0); // TODO remove this
+                // setting the velocity for the chassi
+                velocity.set(distance.getX() * 0.3, distance.getY() * 0.3, 0.0);
+            }
         }
     }
 }

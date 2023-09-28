@@ -19,7 +19,7 @@ public class TestCoordinateDriving extends BaseAutonomous {
 
     @Override
     public void initialize() {
-        navi = new FieldNavigation();
+        navi = new FieldNavigation(new Position2D(100,50), 0.0);
         chassi = new MecanumChassi();
         chassi.setRotationAxis(1);
         chassi.populateMotorArray(hardwareMap);
@@ -29,7 +29,7 @@ public class TestCoordinateDriving extends BaseAutonomous {
 
     @Override
     public void run() {
-        robot.drive(new Position2D(100.0, 0.0));
+        robot.drive(new Position2D(0.0, 0.0), false);
 
         while (opModeIsActive()) {
             robot.step();

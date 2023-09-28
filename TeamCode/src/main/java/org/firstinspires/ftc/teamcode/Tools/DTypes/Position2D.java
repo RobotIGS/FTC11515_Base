@@ -121,8 +121,9 @@ public class Position2D {
 
         // normalize
         double alpha = Math.atan(this.y / this.x);
-        boolean x = this.x > 0;
-        boolean y = this.y > 0;
-        return new Position2D((x?1:.1)*Math.cos(alpha),(y?1:-1)*Math.sin(alpha));
+        return new Position2D(
+                (this.x/Math.abs(this.x)) * Math.cos(alpha),
+                (this.x/Math.abs(this.x)) * Math.sin(alpha)
+        );
     }
 }
