@@ -12,9 +12,12 @@ public class FieldNavigation {
     private Position2D position;
     private double rotation;
     private Position2D target_position;
+    private double target_rotation;
     private double driving_accuracy;
     private Velocity velocity;
 
+    private PIDcontroller rotationPIDcontroller;
+    private boolean keeprotation;
     public Position2D distance;
 
     /**
@@ -31,6 +34,8 @@ public class FieldNavigation {
         this.target_position = position;
         this.driving_accuracy = 1;
         this.velocity = new Velocity();
+        this.rotationPIDcontroller = new PIDcontroller(0.01,0.0,0.0);
+        keeprotation = false;
     }
 
     /**
@@ -100,12 +105,26 @@ public class FieldNavigation {
     }
 
     /**
+     * set target rotation
+     * @param rot current rotation
+     */
+    public void setTargetRotation(double rot) {
+        target_rotation = rot;
+    }
+
+    /**
      * set current position
      * @param p position
      */
     public void setPosition(Position2D p) {
         position = p;
     }
+
+    /**
+     * set if the robot should keep the target rotation
+     * @param keep
+     */
+    public void setKeepRotation(boolean keep) {keeprotation = keep;}
 
     /**
      * calculate current position utilising the driven distance since the last refresh
@@ -167,6 +186,10 @@ public class FieldNavigation {
                 // setting the velocity for the chassi
                 velocity.set(distance.getX() * 0.3, distance.getY() * 0.3, 0.0);
             }
+        }
+
+        if (keeprotation) {
+            velocity.setWZ(rotationPIDcontroller.step(target_rotation-rotation));
         }
     }
 }

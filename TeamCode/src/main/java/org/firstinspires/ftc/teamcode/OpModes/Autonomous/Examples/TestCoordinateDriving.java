@@ -29,6 +29,8 @@ public class TestCoordinateDriving extends BaseAutonomous {
 
     @Override
     public void run() {
+        navi.setTargetRotation(90);
+        navi.setKeepRotation(true);
         robot.drive(new Position2D(0.0, 0.0), false);
 
         while (opModeIsActive()) {
