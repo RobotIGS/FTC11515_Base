@@ -3,13 +3,11 @@ package org.firstinspires.ftc.teamcode.OpModes.TeleOp.Examples;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.teamcode.OpModes.TeleOp.BaseTeleOp;
-import org.firstinspires.ftc.teamcode.Tools.Chassi;
-import org.firstinspires.ftc.teamcode.Tools.ChassiBase;
 import org.firstinspires.ftc.teamcode.Tools.FieldNavigation;
-import org.firstinspires.ftc.teamcode.Tools.MecanumChassi;
-import org.firstinspires.ftc.teamcode.Tools.NormalChassi;
+import org.firstinspires.ftc.teamcode.Tools.Chassis.ChassiBase;
+import org.firstinspires.ftc.teamcode.Tools.Chassis.MecanumChassi;
+import org.firstinspires.ftc.teamcode.Tools.Chassis.NormalChassi;
 import org.firstinspires.ftc.teamcode.Tools.Robot;
 
 import java.util.Date;
