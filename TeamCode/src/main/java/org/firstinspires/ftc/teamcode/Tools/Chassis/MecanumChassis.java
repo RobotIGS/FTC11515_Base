@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Tools.Chassis;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
@@ -15,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
  *
  */
 
-public class MecanumChassi extends ChassiBase {
+public class MecanumChassis extends ChassisBase {
     private final double WHEELDIAMETER = 10;
     private final double ONE_OVER_R = 1/(WHEELDIAMETER/2); //TODO check + add variable(r) + const
     private final double R_OVER_4 = (WHEELDIAMETER/2)/4;
@@ -34,7 +32,7 @@ public class MecanumChassi extends ChassiBase {
             {-1/(lx+ly), 1/(lx+ly), -1/(lx+ly), 1/(lx+ly)}
     };
 
-    public MecanumChassi() {
+    public MecanumChassis() {
         super(4);
     }
 

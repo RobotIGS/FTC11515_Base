@@ -1,19 +1,19 @@
 package org.firstinspires.ftc.teamcode.Tools;
 
-import org.firstinspires.ftc.teamcode.Tools.Chassis.Chassi;
+import org.firstinspires.ftc.teamcode.Tools.Chassis.Chassis;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
 // TODO isb for driving etc
 
 public class Robot {
     public FieldNavigation navi;
-    public Chassi chassi;
+    public Chassis chassis;
     protected Profile profile;
 
     // TODO: javadoc
-    public Robot(FieldNavigation navi, Chassi chassi) {
+    public Robot(FieldNavigation navi, Chassis chassis) {
         this.navi = navi;
-        this.chassi = chassi;
+        this.chassis = chassis;
     }
 
     /**
@@ -79,17 +79,17 @@ public class Robot {
      */
     public void stop() {
         navi.stop();
-        chassi.stopMotors();
+        chassis.stopMotors();
     }
 
     /**
      * refresh
      */
     public void step() {
-        navi.setRotation(chassi.getRotation());
-        navi.addDrivenDistance(chassi.getDrivenDistance());
+        navi.setRotation(chassis.getRotation());
+        navi.addDrivenDistance(chassis.getDrivenDistance());
         navi.step();
-        chassi.setVelocity(navi.getVelocity());
-        chassi.step();
+        chassis.setVelocity(navi.getVelocity());
+        chassis.step();
     }
 }

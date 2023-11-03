@@ -26,7 +26,7 @@ public class FieldNavigation {
      * @param rotation rotation of the robot in Degrees
      */
 
-    // TODO remove rotation as it is part of chassi in the constructor
+    // TODO remove rotation as it is part of chassis in the constructor
     public FieldNavigation(Position2D position, double rotation) {
         this.driving = false;
         this.position = position;
@@ -179,11 +179,11 @@ public class FieldNavigation {
                 stop();
 
             else {
-                // calculate velocity for the chassi
+                // calculate velocity for the chassis
                 Position2D distance = this.distance.getNormalization();
                 distance.rotate(-this.rotation);
 
-                // setting the velocity for the chassi
+                // setting the velocity for the chassis
                 velocity.set(distance.getX() * 0.3, distance.getY() * 0.3, 0.0);
             }
         }

@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 // imports from org.firstinspires.ftc.teamcode
 import org.firstinspires.ftc.teamcode.OpModes.TeleOp.BaseTeleOp;
+import org.firstinspires.ftc.teamcode.Tools.Chassis.Chassis;
 import org.firstinspires.ftc.teamcode.Tools.FieldNavigation;
-import org.firstinspires.ftc.teamcode.Tools.Chassis.Chassi;
-import org.firstinspires.ftc.teamcode.Tools.Chassis.NormalChassi;
+import org.firstinspires.ftc.teamcode.Tools.Chassis.NormalChassis;
 import org.firstinspires.ftc.teamcode.Tools.Robot;
 
 // imports from Java like Math/etc.
@@ -21,7 +21,7 @@ public class Solution extends BaseTeleOp {
     // declaration of important objects
     private Robot robot;
     private FieldNavigation navi;
-    private Chassi chassi;
+    private Chassis chassis;
 
     // declaration of global variables
     private double speed;
@@ -35,11 +35,11 @@ public class Solution extends BaseTeleOp {
     public void initialize() {
         // create default objects
         navi = new FieldNavigation(); // navigation system for the robot
-        chassi = new NormalChassi(); // control interface for the drive train
-        chassi.populateMotorArray(hardwareMap); // load motor interfaces
+        chassis = new NormalChassis(); // control interface for the drive train
+        chassis.populateMotorArray(hardwareMap); // load motor interfaces
 
         // create important objects
-        robot = new Robot(navi, chassi); // create robot control interface
+        robot = new Robot(navi, chassis); // create robot control interface
 
         // setting default values for variables
         speed = 0.0;

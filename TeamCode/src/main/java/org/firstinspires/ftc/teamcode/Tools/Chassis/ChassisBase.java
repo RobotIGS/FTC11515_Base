@@ -5,7 +5,6 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Velocity;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 
@@ -20,7 +19,7 @@ vx
  */
 
 //TODO add l_x, l_y
-public abstract class ChassiBase implements Chassi {
+public abstract class ChassisBase implements Chassis {
     protected BNO055IMU imu;
     protected BNO055IMU.Parameters imu_prameters;
 
@@ -36,9 +35,9 @@ public abstract class ChassiBase implements Chassi {
     private int rotation_axis;
 
     /**
-     * create chassi
+     * create chassis
      */
-    public ChassiBase(int numWheels) {
+    public ChassisBase(int numWheels) {
         imu_prameters = new BNO055IMU.Parameters();
         imu_prameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         imu_prameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -106,7 +105,7 @@ public abstract class ChassiBase implements Chassi {
     }
 
     /**
-     * stop chassi movement
+     * stop chassis movement
      */
     public void stopMotors() {
         setVelocity(new Velocity());
@@ -142,7 +141,7 @@ public abstract class ChassiBase implements Chassi {
      */
     public String debug() {
         String ret = String.format(
-                "--- Chassi Debug ---\nvelocity :: vx=%+1.2f vy=%+1.2f wz=%+1.2f\ndrivenDistance :: x=%+2.2f y=%+2.2f\nrotation :: %+3.2f\nrawation :: %+3.2f + %+3.2f\n",
+                "--- Chassis Debug ---\nvelocity :: vx=%+1.2f vy=%+1.2f wz=%+1.2f\ndrivenDistance :: x=%+2.2f y=%+2.2f\nrotation :: %+3.2f\nrawation :: %+3.2f + %+3.2f\n",
                 velocity.getVX(), velocity.getVY(), velocity.getWZ(), drivenDistance.getX(), drivenDistance.getY(), getRotation(), getRawRotation(), rotation_offset);
 
         // add wheel debug

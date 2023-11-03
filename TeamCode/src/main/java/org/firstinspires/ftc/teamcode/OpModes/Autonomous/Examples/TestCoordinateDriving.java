@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.OpModes.Autonomous.Examples;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.OpModes.Autonomous.BaseAutonomous;
-import org.firstinspires.ftc.teamcode.Tools.Chassis.Chassi;
-import org.firstinspires.ftc.teamcode.Tools.Chassis.MecanumChassi;
+import org.firstinspires.ftc.teamcode.Tools.Chassis.Chassis;
+import org.firstinspires.ftc.teamcode.Tools.Chassis.MecanumChassis;
 import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
 import org.firstinspires.ftc.teamcode.Tools.FieldNavigation;
 import org.firstinspires.ftc.teamcode.Tools.Robot;
@@ -14,17 +13,17 @@ import org.firstinspires.ftc.teamcode.Tools.Robot;
 //@Disabled
 public class TestCoordinateDriving extends BaseAutonomous {
     private Robot robot;
-    private Chassi chassi;
+    private Chassis chassis;
     private FieldNavigation navi;
 
     @Override
     public void initialize() {
         navi = new FieldNavigation(new Position2D(100,50), 0.0);
-        chassi = new MecanumChassi();
-        chassi.setRotationAxis(1);
-        chassi.populateMotorArray(hardwareMap);
+        chassis = new MecanumChassis();
+        chassis.setRotationAxis(1);
+        chassis.populateMotorArray(hardwareMap);
 
-        robot = new Robot(navi, chassi);
+        robot = new Robot(navi, chassis);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class TestCoordinateDriving extends BaseAutonomous {
 
         while (opModeIsActive()) {
             robot.step();
-            telemetry.addLine(chassi.debug());
+            telemetry.addLine(chassis.debug());
             telemetry.addLine(navi.debug());
             telemetry.update();
         }

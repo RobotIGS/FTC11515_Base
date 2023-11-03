@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.Tools.DTypes.Position2D;
  *
  */
 
-public class NormalChassi extends ChassiBase {
-    public NormalChassi() {
+public class NormalChassis extends ChassisBase {
+    public NormalChassis() {
         super(4);
     }
 
